@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -79,7 +80,7 @@ exports.extractCSS = ({ include, exclude, use = [] }) => {
 exports.autoprefix = () => ({
   loader: 'postcss-loader',
   options: {
-    plugins: () => [require('autoprefixer')()],
+    plugins: () => [autoprefixer()],
   },
 });
 

@@ -11,7 +11,7 @@ const PATHS = {
 const commonConfig = merge([
   {
     entry: {
-      app: './src/js/app.js',
+      app: ['babel-polyfill', './src/js/app.js'],
     },
     plugins: [
       new HtmlWebpackPlugin({
