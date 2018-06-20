@@ -9,6 +9,36 @@
 </head>
 
 <body>
+  <div class="container">
+    <nav class="nav">
+      <ul class="nav__nav-list">
+        <li class="nav__nav-item">
+          <a href="#" class="nav__nav-link nav__nav-link--brand">Microposts</a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="postForm">
+      <form class="form">
+        <h3 class="heading heading--3">Say Something</h3>
+        <p class="sub-heading">What's on your mind?</p>
+        <div class="form__group">
+          <input type="text" class="form__input form__input--post-title" placeholder="Post Title" name="post-title">
+        </div>
+
+        <div class="form__group">
+          <textarea name="post-body" class="form__input form__input--post-body" placeholder="Post Body"></textarea>
+        </div>
+        <!-- Exists solely for adding id's dynamically -->
+        <input type="hidden" value="" class="id">
+        <button type="submit" class="btn btn--submit">Post It</button>
+      </form>
+    </section>
+
+    <section class="posts">
+      <ul class="posts-list"></ul>
+    </section>
+  </div>
 </body>
 
 </html>
