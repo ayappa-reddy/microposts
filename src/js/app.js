@@ -1,8 +1,10 @@
 import Http from './http';
 import UI from './ui';
+import '../sass/style.scss';
 
 const App = (function App() {
   const getPosts = function getPosts() {
+    console.log('called');
     Http.get('http://localhost:4000/posts')
       .then(data => UI.displayPosts(data))
       .catch(err =>
@@ -22,15 +24,23 @@ const App = (function App() {
       body,
     };
 
-    console.log(title, body);
-
     if (title === '' || body === '') {
       UI.showAlert('Please fill in all inputs', 'alert alert--danger');
     } else {
       if (id === '') {
-        Http.post('http://localhost:4000/posts', data).then(post =>
-          console.log(post),
-        );
+        Http.post('http://localhost:4000/posts', data)
+          .then(post => {
+            UI.clearInputs();
+            getPosts();
+            UI.showAlert('Post added', 'alert alert--success', post);
+          })
+          .catch(err =>
+            UI.showAlert(
+              'OOPS! Something went wrong',
+              'alert alert--danger',
+              err,
+            ),
+          );
 
         return;
       }

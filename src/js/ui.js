@@ -34,7 +34,9 @@ const UI = (function UI() {
       document.querySelector(UISelectors.postsList).innerHTML = html;
     },
 
-    showAlert(message, className) {
+    showAlert(message, className, error) {
+      console.log(error);
+
       if (!document.querySelector(UISelectors.alert)) {
         const alertDiv = document.createElement('div');
 
@@ -56,6 +58,12 @@ const UI = (function UI() {
 
     removeAlert() {
       document.querySelector(UISelectors.alert).remove();
+    },
+
+    clearInputs() {
+      document.querySelector(UISelectors.postTitleInput).value = '';
+      document.querySelector(UISelectors.postBodyInput).value = '';
+      document.querySelector(UISelectors.idInput).value = '';
     },
   };
 })();
