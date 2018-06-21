@@ -45,7 +45,22 @@ const App = (function App() {
         return;
       }
 
-      console.log('Update post');
+      Http.put(`http://localhost:4000/posts/${id}`, data)
+        .then(post => {
+          UI.clearInputs();
+          getPosts();
+          UI.showAlert('Post updated', 'alert alert--success', post);
+        })
+        .catch(err =>
+          UI.showAlert(
+            'OOPS! Something went wrong',
+            'alert alert--danger',
+            err,
+          ),
+        );
+
+      UI.clearInputs();
+      UI.removeEditStateBtns();
     }
   };
 
@@ -80,6 +95,7 @@ const App = (function App() {
 
   return {
     init() {
+      UI.hideCancelBtn();
       loadAllEventListeners();
     },
   };

@@ -9,19 +9,20 @@ const UI = (function UI() {
     idInput: '.id',
     submitBtn: '.btn--submit',
     form: '.form',
-  };
-
-  const createBtn = function createBtn(className, parentElm, text) {
-    const btn = document.createElement('button');
-    btn.className = `btn btn--${className}`;
-
-    btn.appendChild(document.createTextNode(text));
-
-    document.querySelector(parentElm).appendChild(btn);
+    cancelBtn: '.btn--cancel',
   };
 
   return {
     UISelectors,
+
+    hideCancelBtn() {
+      document.querySelector(UISelectors.cancelBtn).style.display = 'none';
+    },
+
+    showCancelBtn() {
+      document.querySelector(UISelectors.cancelBtn).style.display =
+        'inline-block';
+    },
 
     displayPosts(posts) {
       let html = '';
@@ -35,7 +36,7 @@ const UI = (function UI() {
               <span class="icon icon--edit">&#9997;</span>
             </a>
             <a href="#" class="posts-list__link">
-              <span class="icon icon--edit">&times;</span>
+              <span class="icon icon--delete">&times;</span>
             </a>
           </li>
         `;
@@ -62,7 +63,7 @@ const UI = (function UI() {
 
         setTimeout(() => {
           this.removeAlert();
-        }, 3000);
+        }, 2000);
       }
     },
 
@@ -84,7 +85,13 @@ const UI = (function UI() {
     displayEditStateBtns() {
       document.querySelector(UISelectors.submitBtn).textContent = 'Update Post';
 
-      createBtn('cancel', UISelectors.form, 'Cancel Edit');
+      this.showCancelBtn();
+    },
+
+    removeEditStateBtns() {
+      document.querySelector(UISelectors.submitBtn).textContent = 'Post It';
+
+      this.hideCancelBtn();
     },
   };
 })();
