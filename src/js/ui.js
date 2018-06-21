@@ -45,9 +45,7 @@ const UI = (function UI() {
       document.querySelector(UISelectors.postsList).innerHTML = html;
     },
 
-    showAlert(message, className, error) {
-      console.log(error);
-
+    showAlert(message, className) {
       if (!document.querySelector(UISelectors.alert)) {
         const alertDiv = document.createElement('div');
 

@@ -4,9 +4,33 @@ import '../sass/style.scss';
 
 const App = (function App() {
   const getPosts = function getPosts() {
-    console.log('called');
     Http.get('http://localhost:4000/posts')
       .then(data => UI.displayPosts(data))
+      .catch(err =>
+        UI.showAlert('OOPS! Something went wrong', 'alert alert--danger', err),
+      );
+  };
+
+  const addNewPost = function addPost(data) {
+    Http.post('http://localhost:4000/posts', data)
+      .then(post => {
+        UI.clearInputs();
+        getPosts();
+        UI.showAlert('Post added', 'alert alert--success', post);
+      })
+      .catch(err =>
+        UI.showAlert('OOPS! Something went wrong', 'alert alert--danger', err),
+      );
+  };
+
+  const addUpdatedPost = function updatePost(id, data) {
+    Http.put(`http://localhost:4000/posts/${id}`, data)
+      .then(post => {
+        UI.clearInputs();
+        UI.removeEditStateBtns();
+        getPosts();
+        UI.showAlert('Post updated', 'alert alert--success', post);
+      })
       .catch(err =>
         UI.showAlert('OOPS! Something went wrong', 'alert alert--danger', err),
       );
@@ -28,43 +52,15 @@ const App = (function App() {
       UI.showAlert('Please fill in all inputs', 'alert alert--danger');
     } else {
       if (id === '') {
-        Http.post('http://localhost:4000/posts', data)
-          .then(post => {
-            UI.clearInputs();
-            getPosts();
-            UI.showAlert('Post added', 'alert alert--success', post);
-          })
-          .catch(err =>
-            UI.showAlert(
-              'OOPS! Something went wrong',
-              'alert alert--danger',
-              err,
-            ),
-          );
-
+        addNewPost(data);
         return;
       }
 
-      Http.put(`http://localhost:4000/posts/${id}`, data)
-        .then(post => {
-          UI.clearInputs();
-          getPosts();
-          UI.showAlert('Post updated', 'alert alert--success', post);
-        })
-        .catch(err =>
-          UI.showAlert(
-            'OOPS! Something went wrong',
-            'alert alert--danger',
-            err,
-          ),
-        );
-
-      UI.clearInputs();
-      UI.removeEditStateBtns();
+      addUpdatedPost(id, data);
     }
   };
 
-  const deletePost = function deletePost(id) {
+  const deletePost = function deletePost(id, e) {
     Http.delete(`http://localhost:4000/posts/${id}`)
       .then(() => {
         UI.clearInputs();
@@ -75,30 +71,36 @@ const App = (function App() {
       .catch(err =>
         UI.showAlert('OOPS! Something went wrong', 'alert alert--danger', err),
       );
+
+    e.preventDefault();
+  };
+
+  const updatePost = function updatePost(e) {
+    const title =
+      e.target.parentElement.previousElementSibling.previousElementSibling
+        .textContent;
+    const body = e.target.parentElement.previousElementSibling.textContent;
+
+    const { id } = e.target.parentElement.parentElement.dataset;
+
+    document.querySelector(UI.UISelectors.idInput).value = id;
+
+    UI.fillInputsWithValues(title, body);
+
+    UI.displayEditStateBtns();
+
+    e.preventDefault();
   };
 
   const editPost = function editPost(e) {
     if (e.target.classList.contains('icon--edit')) {
-      const title =
-        e.target.parentElement.previousElementSibling.previousElementSibling
-          .textContent;
-      const body = e.target.parentElement.previousElementSibling.textContent;
-
-      const { id } = e.target.parentElement.parentElement.dataset;
-
-      document.querySelector(UI.UISelectors.idInput).value = id;
-
-      UI.fillInputsWithValues(title, body);
-
-      UI.displayEditStateBtns();
+      updatePost(e);
     }
 
     if (e.target.classList.contains('icon--delete')) {
       const { id } = e.target.parentElement.parentElement.dataset;
-      deletePost(id);
+      deletePost(id, e);
     }
-
-    e.preventDefault();
   };
 
   const cancelEditState = function cancelEditState(e) {
