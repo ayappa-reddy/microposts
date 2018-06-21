@@ -8,6 +8,16 @@ const UI = (function UI() {
     postBodyInput: '.form__input--post-body',
     idInput: '.id',
     submitBtn: '.btn--submit',
+    form: '.form',
+  };
+
+  const createBtn = function createBtn(className, parentElm, text) {
+    const btn = document.createElement('button');
+    btn.className = `btn btn--${className}`;
+
+    btn.appendChild(document.createTextNode(text));
+
+    document.querySelector(parentElm).appendChild(btn);
   };
 
   return {
@@ -18,7 +28,7 @@ const UI = (function UI() {
 
       posts.forEach(post => {
         html += `
-          <li class="posts-list__item">
+          <li class="posts-list__item" data-id=${post.id}>
             <h5 class="heading heading--5">${post.title}</h5>
             <p class="paragraph paragraph--secondary">${post.body}</p>
             <a href="#" class="posts-list__link">
@@ -64,6 +74,17 @@ const UI = (function UI() {
       document.querySelector(UISelectors.postTitleInput).value = '';
       document.querySelector(UISelectors.postBodyInput).value = '';
       document.querySelector(UISelectors.idInput).value = '';
+    },
+
+    fillInputsWithValues(title, body) {
+      document.querySelector(UISelectors.postTitleInput).value = title;
+      document.querySelector(UISelectors.postBodyInput).value = body;
+    },
+
+    displayEditStateBtns() {
+      document.querySelector(UISelectors.submitBtn).textContent = 'Update Post';
+
+      createBtn('cancel', UISelectors.form, 'Cancel Edit');
     },
   };
 })();

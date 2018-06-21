@@ -49,11 +49,33 @@ const App = (function App() {
     }
   };
 
+  const editPost = function editPost(e) {
+    if (e.target.classList.contains('icon--edit')) {
+      const title =
+        e.target.parentElement.previousElementSibling.previousElementSibling
+          .textContent;
+      const body = e.target.parentElement.previousElementSibling.textContent;
+
+      const { id } = e.target.parentElement.parentElement.dataset;
+
+      document.querySelector(UI.UISelectors.idInput).value = id;
+
+      UI.fillInputsWithValues(title, body);
+
+      UI.displayEditStateBtns();
+
+      e.preventDefault();
+    }
+  };
+
   const loadAllEventListeners = function loadAllEventListeners() {
     document.addEventListener('DOMContentLoaded', getPosts);
     document
       .querySelector(UI.UISelectors.submitBtn)
       .addEventListener('click', submitPost);
+    document
+      .querySelector(UI.UISelectors.postsList)
+      .addEventListener('click', editPost);
   };
 
   return {
