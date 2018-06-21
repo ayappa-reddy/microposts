@@ -2,8 +2,12 @@ const UI = (function UI() {
   const UISelectors = {
     container: '.container',
     postsList: '.posts-list',
-    postsSection: 'posts-section',
+    postsSection: '.posts-section',
     alert: '.alert',
+    postTitleInput: '.form__input--post-title',
+    postBodyInput: '.form__input--post-body',
+    idInput: '.id',
+    submitBtn: '.btn--submit',
   };
 
   return {
@@ -31,25 +35,23 @@ const UI = (function UI() {
     },
 
     showAlert(message, className) {
-      if (document.querySelector(UISelectors.alert)) {
-        this.removeAlert();
+      if (!document.querySelector(UISelectors.alert)) {
+        const alertDiv = document.createElement('div');
+
+        alertDiv.className = className;
+        alertDiv.appendChild(document.createTextNode(message));
+
+        document
+          .querySelector(UISelectors.container)
+          .insertBefore(
+            alertDiv,
+            document.querySelector(UISelectors.postsSection),
+          );
+
+        setTimeout(() => {
+          this.removeAlert();
+        }, 3000);
       }
-
-      const alertDiv = document.createElement('div');
-
-      alertDiv.className = className;
-      alertDiv.appendChild(document.createTextNode(message));
-
-      document
-        .querySelector(UISelectors.container)
-        .insertBefore(
-          alertDiv,
-          document.querySelector(UISelectors.postsSection),
-        );
-
-      setTimeout(() => {
-        this.removeAlert();
-      }, 3000);
     },
 
     removeAlert() {
