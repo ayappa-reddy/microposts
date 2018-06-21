@@ -125,7 +125,6 @@ const App = (function App() {
 
   return {
     init() {
-      UI.hideCancelBtn();
       loadAllEventListeners();
     },
   };

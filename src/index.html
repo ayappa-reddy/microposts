@@ -20,7 +20,7 @@
 
     <section class="form-section">
       <form class="form">
-        <h3 class="heading heading--3">Say Something</h3>
+        <h5 class="heading heading--3">Say Something</h5>
         <p class="paragraph paragraph--primary">What's on your mind?</p>
         <div class="form__group">
           <input type="text" class="form__input form__input--post-title" placeholder="Post Title" name="post-title">
@@ -31,8 +31,10 @@
         </div>
         <!-- Exists solely for adding id's dynamically -->
         <input type="hidden" value="" class="id">
-        <button type="submit" class="btn btn--submit">Post It</button>
-        <button type="submit" class="btn btn--cancel">Cancel</button>
+        <div class="btn-box">
+          <button type="submit" class="btn btn--submit">Post It</button>
+          <button type="submit" class="btn btn--cancel" style="display: none">Cancel</button>
+        </div>
       </form>
     </section>
 

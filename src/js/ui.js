@@ -30,13 +30,15 @@ const UI = (function UI() {
       posts.forEach(post => {
         html += `
           <li class="posts-list__item" data-id=${post.id}>
-            <h5 class="heading heading--5">${post.title}</h5>
-            <p class="paragraph paragraph--secondary">${post.body}</p>
-            <a href="#" class="posts-list__link">
-              <span class="icon icon--edit">&#9997;</span>
+            <h5 class="heading heading--5 posts-list__title">${post.title}</h5>
+            <p class="paragraph paragraph--secondary posts-list__body">${
+              post.body
+            }</p>
+            <a href="#" class="posts-list__link posts-list__link--1">
+              <span class="icon icon--edit">&#9997; Edit</span>
             </a>
-            <a href="#" class="posts-list__link">
-              <span class="icon icon--delete">&times;</span>
+            <a href="#" class="posts-list__link posts-list__link--2">
+              <span class="icon icon--delete">&times; Delete</span>
             </a>
           </li>
         `;
@@ -82,12 +84,18 @@ const UI = (function UI() {
 
     displayEditStateBtns() {
       document.querySelector(UISelectors.submitBtn).textContent = 'Update Post';
+      document
+        .querySelector(UISelectors.submitBtn)
+        .classList.add('btn--update');
 
       this.showCancelBtn();
     },
 
     removeEditStateBtns() {
       document.querySelector(UISelectors.submitBtn).textContent = 'Post It';
+      document
+        .querySelector(UISelectors.submitBtn)
+        .classList.remove('btn--update');
 
       this.hideCancelBtn();
     },

@@ -1,0 +1,246 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {@content}; //600px
+  }
+}
+
+$color-primary: #2780E3;
+
+$default-font-size: 1.6rem;
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  @include respond(phone) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  font-size: $default-font-size;
+}
+
+.nav {
+  background-color: $color-primary;
+  padding: 1rem;
+
+  &__nav-list {
+    list-style: none;
+    text-align: center;
+  }
+
+  &__nav-link {
+    text-decoration: none;
+    display: inline-block;
+
+    &--brand:link,
+    &--brand:visited {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 300;
+    }
+  }
+}
+
+.form-section {
+  padding: 1.5rem;
+}
+
+.form {
+  max-width: 80rem;
+  border: 1px solid rgba(#333, 0.2);
+  padding: 2rem;
+  margin: 0 auto;
+  border-radius: 2px;
+
+  &__group {
+    margin: 1rem 0;
+  }
+
+  &__input {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid rgba(#333, 0.3);
+    border-radius: 2px;
+    padding: 1rem;
+    font-size: $default-font-size;
+    transition: all .3s;
+
+    &--post-body {
+      height: 20vh;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3pt rgba($color-primary, .3);
+    }
+  }
+}
+
+.heading {
+  color: $color-primary;
+
+  &--3 {
+    font-size: 3rem;
+    font-weight: 100;
+  }
+
+  &--5 {
+    font-size: 2rem;
+    font-weight: 100;
+  }
+}
+
+.paragraph {
+  &--primary {
+    font-size: 2rem;
+  }
+
+  &--secondary {
+    font-size: $default-font-size;
+  }
+}
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    flex: 1;
+    
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.btn {
+  width: 50%;
+  display: inline-block;
+  padding: 1rem 2.2rem;
+  font-size: $default-font-size;
+  color: #fff;
+  box-shadow: 0 0.1rem 0.1rem rgba(#000, 0.3);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    color: greenyellow;
+  }
+
+  &:hover {
+    box-shadow: 0 0.2rem 0.2rem rgba(#000, 0.5);
+  }
+
+  &--submit {
+    background-color: $color-primary;
+  }
+
+  &--update {
+    background-color: rgba($color-primary, .7);
+  }
+
+  &--cancel {
+    background-color: #777;
+  }
+}
+
+.alert {
+  max-width: 80rem;
+  border: 1px solid rgba(#333, 0.2);
+  padding: 1rem;
+  margin: 0 auto;
+  border-radius: 2px;
+  text-align: center;
+  font-size: $default-font-size;
+
+  &--danger {
+    background-color: #e68982;
+    color: #fff;
+  }
+
+  &--success {
+    background-color: rgb(167, 202, 233);
+    color: $color-primary;
+  }
+}
+
+.posts-section {
+  padding: 1.5rem;
+}
+
+.posts-list {
+  list-style: none;
+  max-width: 80rem;
+  margin: 0 auto;
+  border-radius: 2px;
+
+  &__item {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1.5rem;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid rgba(#000, 0.1);
+    border-radius: 2px;
+  }
+
+  &__title {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  &__body {
+    grid-column: 1 / -1;
+    text-align: justify;
+  }
+
+  &__link:link,
+  &__link:visited {
+    color: $color-primary;
+    text-decoration: none;
+    display: inline-block;
+  }
+}
+
+.icon {
+  font-size: $default-font-size;
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(#000, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s;
+
+  &--edit {
+    background-color: rgba(#ff9800, .7);
+    margin-bottom: 1rem;
+    &:hover {
+      background-color: #ff9800;
+    }
+  }
+
+  &--delete {
+    background-color: rgba(#f44336, .7);
+    &:hover {
+      background-color: #f44336;
+    }
+  }
+}
