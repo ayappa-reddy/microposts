@@ -101,6 +101,13 @@ const App = (function App() {
     e.preventDefault();
   };
 
+  const cancelEditState = function cancelEditState(e) {
+    UI.clearInputs();
+    UI.removeEditStateBtns();
+
+    e.preventDefault();
+  };
+
   const loadAllEventListeners = function loadAllEventListeners() {
     document.addEventListener('DOMContentLoaded', getPosts);
     document
@@ -109,6 +116,9 @@ const App = (function App() {
     document
       .querySelector(UI.UISelectors.postsList)
       .addEventListener('click', editPost);
+    document
+      .querySelector(UI.UISelectors.cancelBtn)
+      .addEventListener('click', cancelEditState);
   };
 
   return {
