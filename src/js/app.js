@@ -64,6 +64,19 @@ const App = (function App() {
     }
   };
 
+  const deletePost = function deletePost(id) {
+    Http.delete(`http://localhost:4000/posts/${id}`)
+      .then(() => {
+        UI.clearInputs();
+        UI.removeEditStateBtns();
+        getPosts();
+        UI.showAlert('Post Deleted', 'alert alert--success');
+      })
+      .catch(err =>
+        UI.showAlert('OOPS! Something went wrong', 'alert alert--danger', err),
+      );
+  };
+
   const editPost = function editPost(e) {
     if (e.target.classList.contains('icon--edit')) {
       const title =
@@ -78,9 +91,14 @@ const App = (function App() {
       UI.fillInputsWithValues(title, body);
 
       UI.displayEditStateBtns();
-
-      e.preventDefault();
     }
+
+    if (e.target.classList.contains('icon--delete')) {
+      const { id } = e.target.parentElement.parentElement.dataset;
+      deletePost(id);
+    }
+
+    e.preventDefault();
   };
 
   const loadAllEventListeners = function loadAllEventListeners() {
